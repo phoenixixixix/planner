@@ -4,9 +4,6 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-.idea
-.DS_store
-
 # Ignore bundler config.
 /.bundle
 
@@ -36,3 +33,46 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+.idea
+.DS_store
+
+# standard set of folders and files to be ignored by git
+# from https://raw.githubusercontent.com/bigbinary/wheel/main/.gitignore
+
+#---------------------------------------#
+# Tools and Package specific ignores    #
+#---------------------------------------#
+.eslintcache
+.yarnrc
+yarn-1.22.5.cjs
+yarn-1.22.5.js
+
+# Ignore node_modules in cypress folder
+cypress-tests/node_modules
+
+# Ignore package-lock.json in cypress folder
+cypress-tests/package-lock.json
+
+# Ignore all logfiles and tempfiles in cypress folder
+cypress-tests/cypress/results
+cypress-tests/debug.log
+
+# Ignore IDE related files in cypress folder
+cypress-tests/.vscode
+
+# Ignore cypress screenshots and videos
+cypress-tests/cypress/artifacts/screenshots/
+cypress-tests/cypress/artifacts/videos/
+cypress-tests/cypress/screenshots/
+cypress-tests/cypress/videos/
+
+# Ignore redis dump file
+dump.rdb
