@@ -50,6 +50,8 @@ yarn-debug.log*
 #---------------------------------------#
 # Tools and Package specific ignores    #
 #---------------------------------------#
+package-lock.json
+
 .eslintcache
 .yarnrc
 yarn-1.22.5.cjs
