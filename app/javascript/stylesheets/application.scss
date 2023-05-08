@@ -2,6 +2,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@import "react-toastify/dist/ReactToastify.min.css";
+
 // 7-1 pattern
 @import "abstracts/variables";
 @import "components/tooltip";
