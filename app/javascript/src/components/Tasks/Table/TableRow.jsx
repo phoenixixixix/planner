@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TableRow = ({ data }) => {
+import Tooltip from "components/Tooltip";
+
+const TableRow = ({ data, showTask }) => {
   return (
     <tbody className="bg-white divide-y divide-gray-200">
     {data.map(rowData => (
@@ -10,7 +12,17 @@ const TableRow = ({ data }) => {
           className="block w-64 px-6 py-4 text-sm font-medium
             leading-8 text-bb-purple capitalize truncate"
         >
-          {rowData.title}
+          <Tooltip content={rowData.title} delay={200} direction="top">
+            <div className="truncate max-w-64 ">{rowData.title}</div>
+          </Tooltip>
+        </td>
+        <td className="px-6 py-4 text-sm font-medium leading-5 text-right cursor-pointer">
+          <a
+            className="text-bb-purple"
+            onClick={() => showTask(rowData.slug)}
+          >
+            Show
+          </a>
         </td>
       </tr>
     ))}
@@ -20,6 +32,7 @@ const TableRow = ({ data }) => {
 
 TableRow.propTypes = {
   data: PropTypes.array.isRequired,
+  showTask: PropTypes.func,
 };
 
 export default TableRow;

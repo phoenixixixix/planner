@@ -4,6 +4,11 @@ class TasksController < ApplicationController
     render status: :ok, json: { tasks: }
   end
 
+  def show
+    task = Task.find_by!(slug: params[:slug])
+    render_json({ task: })
+  end
+
   def create
     task = Task.new(task_params)
     task.save!
