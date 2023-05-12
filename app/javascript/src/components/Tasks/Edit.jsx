@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
+
+import tasksApi from "apis/tasks";
+import usersApi from "apis/users";
+import Container from "components/Container";
+import PageLoader from "components/PageLoader";
 import { useParams } from "react-router-dom";
 
-import Container from "components/Container";
 import Form from "./Form";
-import tasksApi from "apis/tasks";
-import PageLoader from "components/PageLoader";
 
 const Edit = ({ history }) => {
   const [title, setTitle] = useState("");
   const [userId, setUserId] = useState("");
+  const [assignedUser, setAssignedUser] = useState("");
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pageLoading, setPageLoading] = useState(true);
   const { slug } = useParams();
@@ -18,7 +22,7 @@ const Edit = ({ history }) => {
     try {
       await tasksApi.update({
         slug,
-        payload: { title },
+        payload: { title, assigned_user_id: userId },
       });
       setLoading(false);
       history.push("/dashboard");
@@ -28,24 +32,40 @@ const Edit = ({ history }) => {
     }
   };
 
+  const fetchUserDetails = async () => {
+    try {
+      const {
+        data: { users },
+      } = await usersApi.list();
+      setUsers(users);
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
   const fetchTaskDetails = async () => {
     try {
       const {
         data: {
-          task: { title, user_id },
+          task: { title },
+          assigned_user,
         },
       } = await tasksApi.show(slug);
       setTitle(title);
-      setUserId(user_id);
+      setAssignedUser(assigned_user);
+      setUserId(assigned_user.id);
     } catch (error) {
       logger.error(error);
-    } finally {
-      setPageLoading(false);
     }
   };
 
+  const loadData = async () => {
+    await Promise.all([fetchTaskDetails(), fetchUserDetails()]);
+    setPageLoading(false);
+  };
+
   useEffect(() => {
-    fetchTaskDetails();
+    loadData();
   }, []);
 
   if (pageLoading) {
@@ -61,7 +81,8 @@ const Edit = ({ history }) => {
       <Form
         type="update"
         title={title}
-        userId={userId}
+        users={users}
+        assignedUser={assignedUser}
         setTitle={setTitle}
         setUserId={setUserId}
         loading={loading}
