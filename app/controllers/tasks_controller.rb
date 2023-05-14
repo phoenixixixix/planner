@@ -10,12 +10,12 @@ class TasksController < ApplicationController
   def create
     task = Task.new(task_params)
     task.save!
-    render_notice(t("successfully_created"))
+    render_notice(t("successfully_created", entity: "Task"))
   end
 
   def update
     @task.update!(task_params)
-    render_notice(t("successfully_updated"))
+    render_notice(t("successfully_updated", entity: "Task"))
   end
 
   def destroy
