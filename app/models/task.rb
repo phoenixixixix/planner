@@ -2,6 +2,7 @@ class Task < ApplicationRecord
   MAX_TITLE_LENGTH = 125
 
   belongs_to :assigned_user, foreign_key: "assigned_user_id", class_name: "User"
+  belongs_to :task_owner, foreign_key: "task_owner_id", class_name: "User"
 
   validates :title, presence: true, length: { maximum: MAX_TITLE_LENGTH }
   validates :slug, uniqueness: true
@@ -30,7 +31,6 @@ class Task < ApplicationRecord
     slug_candidate = slug_count.positive? ? "#{title_slug}-#{slug_count + 1}" : title_slug
     self.slug = slug_candidate
   end
-
 
   def slug_not_changed
     if slug_changed? && self.persisted?
