@@ -73,3 +73,5 @@ gem "webpacker"
 gem "react-rails"
 
 gem "bcrypt", "~> 3.1.13"
+
+gem "pundit"

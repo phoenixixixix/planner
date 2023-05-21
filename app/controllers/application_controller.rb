@@ -1,8 +1,11 @@
 class ApplicationController < ActionController::Base
+  include Pundit::Authorization
+
   before_action :authenticate_user_using_x_auth_token
 
   protect_from_forgery
 
+  rescue_from Pundit::NotAuthorizedError, with: :handle_authorization_error
   rescue_from StandardError, with: :handle_api_exception
 
   def handle_api_exception(exception)
@@ -85,5 +88,11 @@ class ApplicationController < ActionController::Base
 
   def current_user
     @current_user
+  end
+
+  private
+
+  def handle_authorization_error
+    render_error(t("authorization.denied"), :forbidden)
   end
 end
