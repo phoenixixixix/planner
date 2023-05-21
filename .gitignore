@@ -78,3 +78,4 @@ cypress-tests/cypress/videos/
 
 # Ignore redis dump file
 dump.rdb
+coverage

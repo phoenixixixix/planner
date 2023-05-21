@@ -57,6 +57,8 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+
+  gem "simplecov", require: false
 end
 
 # For compiling and bundling JavaScript. Read more: https://github.com/rails/webpacker
