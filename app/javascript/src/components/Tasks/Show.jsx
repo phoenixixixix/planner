@@ -16,6 +16,15 @@ const Show = () => {
 
   let history = useHistory();
 
+  const destroyTask = async () => {
+    try {
+      await tasksApi.destroy({ slug: task.slug });
+      history.push("/");
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
   const updateTask = () => {
     history.push(`/tasks/${task.slug}/edit`);
   };
@@ -35,14 +44,13 @@ const Show = () => {
 
   const handleSubmit = async event => {
     event.preventDefault();
-    setLoading(true);
     try {
       await commentsApi.create({ content: newComment, task_id: task.id });
       fetchTaskDetails();
       setNewComment("");
+      setLoading(false);
     } catch (error) {
       logger.error(error);
-    } finally {
       setLoading(false);
     }
   };
@@ -62,6 +70,11 @@ const Show = () => {
           {task?.title}
         </h1>
         <div className="bg-bb-env px-2 mt-2 mb-4 rounded">
+          <i
+            className="text-2xl text-center transition duration-300
+             ease-in-out ri-delete-bin-5-line hover:text-bb-red mr-2"
+            onClick={destroyTask}
+          ></i>
           <i
             className="text-2xl text-center transition duration-300
              ease-in-out ri-edit-line hover:text-bb-yellow"
