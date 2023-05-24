@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { all, isNil, isEmpty, either } from "ramda";
+
 import tasksApi from "apis/tasks";
 import Container from "components/Container";
 import PageLoader from "components/PageLoader";
@@ -26,15 +27,6 @@ const Dashboard = ({ history }) => {
     }
   };
 
-  const destroyTask = async slug => {
-    try {
-      await tasksApi.destroy({ slug, quiet: true });
-      await fetchTasks();
-    } catch (error) {
-      logger.error(error);
-    }
-  };
-
   const handleProgressToggle = async ({ slug, progress }) => {
     try {
       await tasksApi.update({
@@ -45,13 +37,34 @@ const Dashboard = ({ history }) => {
       await fetchTasks();
     } catch (error) {
       logger.error(error);
-    } finally {
-      setLoading(false);
+    }
+  };
+
+  const destroyTask = async slug => {
+    try {
+      await tasksApi.destroy({ slug, quiet: true });
+      await fetchTasks();
+    } catch (error) {
+      logger.error(error);
     }
   };
 
   const showTask = slug => {
     history.push(`/tasks/${slug}/show`);
+  };
+
+  const starTask = async (slug, status) => {
+    try {
+      const toggledStatus = status === "starred" ? "unstarred" : "starred";
+      await tasksApi.update({
+        slug,
+        payload: { status: toggledStatus },
+        quiet: true,
+      });
+      await fetchTasks();
+    } catch (error) {
+      logger.error(error);
+    }
   };
 
   useEffect(() => {
@@ -84,6 +97,7 @@ const Dashboard = ({ history }) => {
           destroyTask={destroyTask}
           showTask={showTask}
           handleProgressToggle={handleProgressToggle}
+          starTask={starTask}
         />
       )}
       {!either(isNil, isEmpty)(completedTasks) && (
