@@ -108,5 +108,5 @@ class UserTest < ActiveSupport::TestCase
     assert_equal task_owner.id, task.reload.assigned_user_id
   end
 
-  
+
 end
