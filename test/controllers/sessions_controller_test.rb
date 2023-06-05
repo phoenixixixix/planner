@@ -27,6 +27,6 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :not_found
     response_json = response.parsed_body
-    assert_equal "Couldn't find User", response_json["error"]
+    assert_equal t("not_found", entity: "User"), response_json["error"]
   end
 end

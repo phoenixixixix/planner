@@ -8,6 +8,7 @@ import Dashboard from "components/Dashboard";
 import { Login, Signup } from "components/Authentication";
 import PrivateRoute from "components/Common/PrivateRoute";
 import PageLoader from "components/PageLoader";
+import MyPreferences from "components/MyPreferences";
 
 import { getFromLocalStorage } from "utils/storage";
 import { registerIntercepts, setAuthHeaders } from "apis/axios";
@@ -41,6 +42,7 @@ const App = () => {
         <Route exact path="/tasks/create" component={CreateTask} />
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
+        <Route exact path="/my/preferences" component={MyPreferences} />
         <PrivateRoute
           path="/"
           redirectRoute="/login"
