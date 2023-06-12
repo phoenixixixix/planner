@@ -35,6 +35,11 @@ const NavBar = () => {
                 iconClass="ri-add-fill"
                 path="/tasks/create"
               />
+              <NavItem
+                name="Download Report"
+                iconClass="ri-file-download-fill"
+                path="/tasks/report"
+              />
             </div>
           </div>
           <div className="flex items-center justify-end gap-x-4">

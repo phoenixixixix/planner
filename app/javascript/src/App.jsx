@@ -9,6 +9,7 @@ import { Login, Signup } from "components/Authentication";
 import PrivateRoute from "components/Common/PrivateRoute";
 import PageLoader from "components/PageLoader";
 import MyPreferences from "components/MyPreferences";
+import DownloadReport from "components/Tasks/DownloadReport";
 
 import { getFromLocalStorage } from "utils/storage";
 import { registerIntercepts, setAuthHeaders } from "apis/axios";
@@ -40,6 +41,7 @@ const App = () => {
         <Route exact path="/tasks/:slug/edit" component={EditTask} />
         <Route exact path="/tasks/:slug/show" component={ShowTask} />
         <Route exact path="/tasks/create" component={CreateTask} />
+        <Route exact path="/tasks/report" component={DownloadReport} />;
         <Route exact path="/signup" component={Signup} />
         <Route exact path="/login" component={Login} />
         <Route exact path="/my/preferences" component={MyPreferences} />
